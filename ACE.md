@@ -219,3 +219,71 @@
     - HTTPS
 50. An application is not functioning with the expected levels of performance. At some times during the day, the time to complete a transaction is 4-5 times longer than the average transaction time. Developers are not finding any error messages in the logs. What tool would you recommend to understand what server resources are being used and if any are exhausted?
     - stackdriver monitoring
+
+---
+
+Premium Practice Test 1
+
+1. You have annual audits every year and you need to provide external auditors access to the last 10 years of audit logs. You want to minimize the cost and operational overhead while following Google recommended practices. What should you do? (Select Three)
+    - configure a lifecycle management policy on the logs bucket to delete objects older than 10 years
+    - Export audit logs to cloud storage via an audit log export sink
+    - Grant external auditors storage object viewer role on  the logs storage
+2. You have a collection of audio/video files over 80GB each that you need to migrate to Google Cloud Storage. The files are in your on-premises data center. What migration method can you use to help speed up the transfer process?
+    -  use parallel uploads to break the file into smaller chunks then transfer it simultaneously
+3. Your company wants to move 200 TB of your website clickstream logs from your on-premise data center to Google Cloud Platform. These logs need to be retained in GCP for compliance requirements. Your business analysts also want to run analytics on these logs to understand user click behavior on your website. Which of the below would enable you to meet these requirements? (Select Two)
+    - load logs into google bigquery
+    - google cloud storage
+4. You have asked your supplier to send you a purchase order and you want to enable them to upload the file to a cloud storage bucket within the next 4 hours. Your supplier does not have a Google account. You want to follow Google recommended practices. What should you do?
+    - Create a service account with just the permissions to upload files to the bucket. Create a JSON key for the service account. Execute the command gsutil signurl -m PUT 0d 4h <json key file> gs://<bucket>/po.pdf
+5. Users of your application are complaining of slowness when loading the application. You realize the slowness is because the App Engine deployment serving the application is deployed in us-central whereas all users of this application are closest to europe-west3. You want to change the region of the App Engine application to europe-west3 to minimize latency. What's the best way to change the App Engine region?
+    - create a new project and create an app engine instance in europe-west3
+6. You are given a project with a single virtual private cloud (VPC) and a single subnet in the us-central1 region. There is a Compute Engine instance hosting an application in this subnet. You need to deploy a new instance in the same project in the europe-west1 region. This new instance needs access to the application. You want to follow Google-recommended practices. What should you do?
+    - create a subnet in the same vpc, in europe-west1
+    - create the new isntance in the new subnet and use the first instance subnet's private address as the end point
+7. You deployed a number of services to Google App Engine Standard. The services are designed as microservices with several interdependencies between them. Most services have few version upgrades but some key services have over 20 version upgrades. You identified an issue with the service pt-createOrder and deployed a new version v3 for this service. You are confident this works and want this new version to receive all traffic for the service. You want to minimize effort and ensure the availability of service. What should you do?
+    - Execute gcloud app versions stop v2 --service="pt-createOrder" and gcloud app versions start v3 -- serivce="pt-createOrder"
+8. You created a Google Cloud Platform project with an App Engine application inside the project. You initially configured the application to be served from the us-central region. Now you want the application to be served from the asia-northeast1 region. What should you do?
+    - create a new GCP project and create an App Engine application inside this new project. Specify asia-northeast1 as the region to serve your application
+9. You want to create a new role and grant it to the SME team. The new role should provide your SME team BigQuery Job User and Cloud Bigtable User roles on all projects in the organization. You want to minimize operational overhead. You want to follow Google recommended practices. How should you create the new role?
+    - In GCP console under IAM roles, select both roles and combine them into a new custom role.Grant the role to the SME team group at the organization level.
+10. You developed a web application that lets users upload and share images. You deployed this application in Google Compute Engine and you have configured Stackdriver Logging. Your application sometimes times out while uploading large images, and your application generates relevant error log entries that are ingested to Stackdriver Logging. You would now like to create alerts based on these metrics. You intend to add more compute resources manually when the number of failures exceeds a threshold. What should you do in order to alert based on these metrics with minimal effort?
+    - in stackdriver logging, create a custom monitoring metric from log data and createa an alert in stackdriver based on the new metric
+11. You have one GCP account running in your default region and zone and another account running in a non-default region and zone. You want to start a new Compute Engine instance in these two Google Cloud Platform accounts using the command line interface. What should you do?
+    - Create two configurations using gcloud config configurations create [NAME]. Run gcloud config configurations activate [NAME] to swtich between accounts when running the commands to start the compute engine instances
+12. Your company stores customer PII data in Cloud Storage buckets. A subset of this data is regularly imported into a BigQuery dataset to carry out analytics. You want to make sure the access to this bucket is strictly controlled. Your analytics team needs read access on the bucket so that they can import data in BigQuery. Your operations team needs read/write access to both the bucket and BigQuery dataset to add Customer PII data of new customers on an ongoing basis. Your Data Vigilance officers need Administrator access to the Storage bucket and BigQuery dataset. You want to follow Google recommended practices. What should you do?
+    - use the appropriate prewdefined IAM roles for each of the access levels needed for cloud storage and bigquery. add your users to those roles for each of the services. 
+13. You have two Kubernetes resource configuration files.
+deployments.yaml - creates a deployment
+service.YAML - sets up a LoadBalancer service to expose the pods.
+You don't have a GKE cluster in the development project and you need to provision one. Which of the commands below would you run in Cloud Shell to create a GKE cluster and deploy the YAML configuration files to create a deployment and service?
+    - gcloud container clusters create cluster-1 --zone=us-central1-a
+    - gcloud container clusters get-credentials cluster-1 --zone=us-central1-a
+    - kubectl apply -f deployment.yaml
+    - kubectl apply -f service.yaml
+14. Your company uses Cloud Storage to store application backup files for disaster recovery purposes. You want to follow Google recommended practices. Which storage option should you use?
+    - coldline storage
+15. Your company has chosen to go serverless to enable developers to focus on writing code without worrying about infrastructure. You have been asked to identify a GCP Serverless service that does not limit your developers to specific runtimes. In addition, some of the applications need WebSockets support. What should you suggest?
+    - cloud run for anthos
+16. You want to modify the gcloud configuration such that you are prompted for a zone when you execute the create instance commands above. What should you do?
+    - gcloud config unset compute/zone
+17. You have sensitive data stored in three Cloud Storage buckets and have enabled data access logging. You want to verify activities for a particular user for these buckets, using the fewest possible steps. You need to verify the addition of metadata labels and which files have been viewed from those buckets. What should you do?
+    - using the GCP console,filter the stackdriver log to view the information
+18. Your company's test suite is a custom C++ application that runs tests each day on Linux virtual machines. The full test suite takes several hours to complete, running on a limited number of on-premises servers reserved for testing. Your company wants to move the testing infrastructure to Google Cloud Platform. Your company wants to reduce the amount of time it takes to fully test a change to the system while changing the tests as little as possible. Your project manager has asked you to suggest suitable services in Google Cloud and you want to follow Google recommended practices. What should you do?
+    - Use google compute engine  managed instance groups and autoscaling.
+19. You want to create two compute instances - one in europe-west2-a and another in europe-west2-b. What should you do? (Select 2
+    - gcloud compute instances create instance1
+    - gcloud config set compute/zone europe-west2-b
+    - gcloud compute instances create instance2
+
+    - gcloud compute instances create instance1
+    - gcloud compute instances create instance2 --zone=europe-west2-b
+20. You need to refactor this configuration so that the database password is not stored in plain text. You want to follow Google-recommended practices. What should you do?
+    - store the database password inside a secret object. Modify the YAML file to populate the DB_PASSWORD environment variable from the secret.
+21. Your company stores sensitive PII data in a cloud storage bucket. The objects are currently encrypted by Google-managed keys. Your compliance department has asked you to ensure all current and future objects in this bucket are encrypted by customer-managed encryption keys. You want to minimize effort. What should you do?
+    - in the bucket advanced settings, select the customer-managed key and then select a cloud KMS encryption key
+    - rewrite all existing object using gsutil to encrypt them with the new customer -managed key.
+22. You have a virtual machine that is currently configured with 2 vCPUs and 4 GB of memory. It is running out of memory. You want to upgrade the virtual machine to have 8GB of memory. What should you do?
+    - stop the VM, increase the memory to 8GB and start the VM
+23. You have been asked to create a new Kubernetes Cluster on Google Kubernetes Engine that can autoscale the number of worker nodes as well as pods. What should you do? (Select 2)
+    - create a GKE cluster and enable autoscaling on kubernetes engine
+    - enable horizontal pod autoscaling for the kubernetes deployment
